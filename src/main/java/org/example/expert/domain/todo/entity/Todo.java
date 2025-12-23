@@ -30,7 +30,17 @@ public class Todo extends Timestamped {
     @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "todo")
+    /**
+     * @OneToMany [ Cascade Type ]
+     * PERSIST : 부모 저장 시 자식도 저장 (v)
+     * MERGE : 부모 병합 시 자식도 병합
+     * REMOVE : 부모 삭제 시 자식도 삭제
+     * REFRESH : 부모 새로고침 시 자식도 새로고침
+     * DETACH : 부모 분리 시 자식도 분리
+     * ALL : 위 모든 타입 적용
+     */
+    // PERSIST : 할일 저장시 담당자도 저장
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.PERSIST)
     private List<Manager> managers = new ArrayList<>();
 
     public Todo(String title, String contents, String weather, User user) {
@@ -38,6 +48,7 @@ public class Todo extends Timestamped {
         this.contents = contents;
         this.weather = weather;
         this.user = user;
+        // 작성자를 담당자로 등록
         this.managers.add(new Manager(user, this));
     }
 }
