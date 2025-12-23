@@ -10,12 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface TodoRepository extends JpaRepository<Todo, Long> {
-
-    @Query("SELECT t FROM Todo t " +
-            "LEFT JOIN t.user " +
-            "WHERE t.id = :todoId")
-    Optional<Todo> findByIdWithUser(@Param("todoId") Long todoId);
+public interface TodoRepository extends JpaRepository<Todo, Long>, TodoCustomRepository {
 
     // 할 일 검색시 weather 조건으로도 검색하거나 수정일 기준 기간의 시작과 끝 검색하도록 JPQL 수정
     @Query("SELECT t FROM Todo t " +
