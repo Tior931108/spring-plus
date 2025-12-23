@@ -20,7 +20,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class CommentService {
 
     private final TodoRepository todoRepository;
@@ -47,6 +46,7 @@ public class CommentService {
         );
     }
 
+    @Transactional(readOnly = true)
     public List<CommentResponse> getComments(long todoId) {
         List<Comment> commentList = commentRepository.findByTodoIdWithUser(todoId);
 
